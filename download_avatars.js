@@ -13,13 +13,13 @@ function getRepoContributors(repoOwner, repoName, cb) {
   }
 };
 
-  request(options, function(err, res, body) {
-    // cb(err, body);
+  if(repoOwner && repoName) {
+    request(options, function(err, res, body) {
     cb(err, JSON.parse(body));
-    // JSON.parse(body).forEach(function(contributor) {
-    //   console.log(contributor.avatar_url);
-    // })
   });
+  } else {
+    console.log('please specify repoOwner and repoName')
+  }
 }
 
 function downloadImageByURL(url, filePath) {
@@ -30,7 +30,6 @@ function downloadImageByURL(url, filePath) {
 
 getRepoContributors(repoOwner, repoName, function(err, result) {
   console.log("Errors:", err);
-  // console.log("Result:", result);
   result.forEach(function(contributor) {
     downloadImageByURL(contributor.avatar_url, contributor.login);
   });
