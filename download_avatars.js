@@ -1,8 +1,8 @@
 var request = require('request');
 var secrets = require('./secrets.js');
 var fs = require('fs');
-// secrets.GITHUB_TOKEN
-
+var repoOwner = process.argv[2];
+var repoName = process.argv[3];
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var options = {
@@ -28,7 +28,7 @@ function downloadImageByURL(url, filePath) {
 }
 
 
-getRepoContributors("jquery", "jquery", function(err, result) {
+getRepoContributors(repoOwner, repoName, function(err, result) {
   console.log("Errors:", err);
   // console.log("Result:", result);
   result.forEach(function(contributor) {
